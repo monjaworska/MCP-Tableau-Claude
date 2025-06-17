@@ -40,15 +40,53 @@ A powerful Model Context Protocol (MCP) server that connects Claude Desktop to T
 - Access to Tableau Server or Tableau Cloud
 - Administrative privileges (for admin tools)
 
-### 1. Installation
+### 1. Clone and Setup
 
 ```bash
-git clone https://github.com/your-username/tableau-mcp-server.git
-cd tableau-mcp-server
+# Clone the repository
+git clone https://github.com/hetpatel-11/Tableau-MCP.git
+cd Tableau-MCP
+
+# Create virtual environment (recommended)
+python -m venv tableau_mcp_env
+source tableau_mcp_env/bin/activate  # On Windows: tableau_mcp_env\Scripts\activate
+
+# Install ALL dependencies including MCP SDK
 pip install -r requirements.txt
 ```
 
-### 2. Configuration
+### 2. MCP SDK Installation (If Having Issues)
+
+If you encounter MCP SDK installation issues, try these solutions:
+
+```bash
+# Option 1: Install MCP SDK directly
+pip install mcp>=1.0.0
+
+# Option 2: Install with specific version
+pip install mcp==1.0.0
+
+# Option 3: Install from source (if needed)
+pip install git+https://github.com/modelcontextprotocol/python-sdk.git
+
+# Option 4: Force reinstall
+pip install --force-reinstall mcp>=1.0.0
+```
+
+### 3. Verify Installation
+
+```bash
+# Test that MCP SDK is properly installed
+python -c "import mcp; print('✅ MCP SDK installed successfully')"
+
+# Test Tableau Server Client
+python -c "import tableauserverclient as TSC; print('✅ Tableau Server Client ready')"
+
+# Test the server
+python tableau_mcp_server.py --test
+```
+
+### 4. Configuration
 
 Create a `.env` file with your Tableau credentials:
 
@@ -65,7 +103,7 @@ TABLEAU_TOKEN_VALUE=your-token-value
 # TABLEAU_PASSWORD=your-password
 ```
 
-### 3. Claude Desktop Setup
+### 5. Claude Desktop Setup
 
 Add to your Claude Desktop configuration:
 
@@ -75,18 +113,18 @@ Add to your Claude Desktop configuration:
 {
   "mcpServers": {
     "tableau-server": {
-      "command": "/path/to/tableau-mcp-server/start_clean.sh",
+      "command": "/path/to/Tableau-MCP/start_clean.sh",
       "args": []
     }
   }
 }
 ```
 
-### 4. Start the Server
+### 6. Start the Server
 
 ```bash
-# Test connection first
-python tableau_mcp_server.py --test
+# Make startup script executable
+chmod +x start_clean.sh
 
 # Start the server
 ./start_clean.sh
@@ -154,11 +192,12 @@ Claude Desktop ↔ MCP Server ↔ Tableau REST API ↔ Tableau Server
 ## 📁 **Project Structure**
 
 ```
-tableau-mcp-server/
+Tableau-MCP/
 ├── tableau_mcp_server.py    # Main MCP server implementation
 ├── start_clean.sh           # Server startup script
-├── requirements.txt         # Python dependencies
+├── requirements.txt         # Python dependencies (includes MCP SDK)
 ├── setup.py                # Setup and configuration script
+├── env.example             # Environment configuration template
 ├── README.md               # This file
 └── .env                    # Your credentials (create this)
 ```
@@ -171,6 +210,28 @@ tableau-mcp-server/
 - **No Data Leakage**: No data sent to external services
 
 ## 🚨 **Troubleshooting**
+
+### MCP SDK Issues
+
+**"ModuleNotFoundError: No module named 'mcp'"**
+```bash
+# Solution 1: Install MCP SDK
+pip install mcp>=1.0.0
+
+# Solution 2: Check virtual environment
+source tableau_mcp_env/bin/activate
+pip install -r requirements.txt
+
+# Solution 3: Verify Python version
+python --version  # Should be 3.8+
+```
+
+**"MCP SDK version conflict"**
+```bash
+# Uninstall and reinstall
+pip uninstall mcp
+pip install mcp>=1.0.0
+```
 
 ### Common Issues
 
@@ -194,6 +255,7 @@ tableau-mcp-server/
 1. **Test Connection**: `python tableau_mcp_server.py --test`
 2. **Debug Mode**: `python tableau_mcp_server.py --debug`
 3. **Check Logs**: Look for error messages in terminal output
+4. **Verify MCP**: `python -c "import mcp; print('MCP SDK OK')"`
 
 ## 📈 **Example Conversations**
 

@@ -1,0 +1,20 @@
+# MCP SDK for Python
+mcp>=1.0.0
+
+# Tableau Server Client for API interactions
+tableauserverclient>=0.25.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Data manipulation (optional but helpful)
+pandas>=2.0.0
+
+# HTTP requests (fallback if needed)
+requests>=2.31.0
+
+# Logging and utilities
+click>=8.1.0
+
+# For image handling if we need to process Tableau images
+Pillow>=10.0.0 

@@ -610,7 +610,7 @@ class TableauMCPServer:
             
             # Search views
             matching_views = []
-            for wb in workbooks:
+            for wb in matching_workbooks:
                 try:
                     self.tableau_server.workbooks.populate_views(wb)
                     for view in wb.views:

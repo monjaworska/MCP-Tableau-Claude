@@ -63,7 +63,7 @@ class TableauMCPServer:
                 return resources
                 
             try:
-                # Get all workbooks
+                # Get all workbooks - but don't populate views here
                 workbooks, _ = self.tableau_server.workbooks.get()
                 
                 for workbook in workbooks:
@@ -73,19 +73,6 @@ class TableauMCPServer:
                         description=f"Tableau workbook: {workbook.name}",
                         mimeType="application/json"
                     ))
-                    
-                    # Get views for this workbook
-                    try:
-                        self.tableau_server.workbooks.populate_views(workbook)
-                        for view in workbook.views:
-                            resources.append(Resource(
-                                uri=f"tableau://views/{view.id}/data",
-                                name=f"View Data: {view.name}",
-                                description=f"Data from view: {view.name} in workbook: {workbook.name}",
-                                mimeType="text/csv"
-                            ))
-                    except Exception as e:
-                        logger.warning(f"Could not get views for workbook {workbook.name}: {e}")
                         
             except Exception as e:
                 logger.error(f"Error listing resources: {e}")

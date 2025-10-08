@@ -44,7 +44,7 @@ A powerful Model Context Protocol (MCP) server that connects Claude Desktop to T
 
 ```bash
 # Clone the repository
-git clone https://github.com/hetpatel-11/Tableau-MCP.git
+git clone https://github.com/monjaworska/Tableau-MCP.git
 cd Tableau-MCP
 
 # Create virtual environment (recommended)

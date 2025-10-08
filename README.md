@@ -113,12 +113,15 @@ Add to your Claude Desktop configuration:
 {
   "mcpServers": {
     "tableau-server": {
-      "command": "/path/to/Tableau-MCP/start_clean.sh",
-      "args": []
+      "command": "/bin/bash",
+      "args": [
+        "/Users/monika/Documents/Git/Tableau-MCP/start_clean.sh"
+      ]
     }
   }
 }
 ```
+Change it to your path!
 
 ### 6. Start the Server
 

@@ -1,8 +1,10 @@
 {
   "mcpServers": {
     "tableau-server": {
-      "command": "/path/to/tableau-mcp-server/start_clean.sh",
-      "args": []
+      "command": "/bin/bash",
+      "args": [
+        "/Users/monika/Documents/Git/Tableau-MCP/start_clean.sh"
+      ]
     }
   }
-} 
+}
